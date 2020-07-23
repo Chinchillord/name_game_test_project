@@ -5,6 +5,7 @@ plugins {
 	id("io.spring.dependency-management") version "1.0.9.RELEASE"
 	kotlin("jvm") version "1.3.72"
 	kotlin("plugin.spring") version "1.3.72"
+	kotlin("plugin.jpa") version "1.3.72"
 }
 
 group = "com.rack"
@@ -19,6 +20,15 @@ dependencies {
 	implementation("org.springframework.boot:spring-boot-starter-web")
 	implementation("org.jetbrains.kotlin:kotlin-reflect")
 	implementation("org.jetbrains.kotlin:kotlin-stdlib-jdk8")
+	implementation("com.squareup.okhttp3:okhttp:4.8.0")
+	implementation("com.squareup.moshi:moshi-kotlin:1.9.3")
+	implementation("com.squareup.moshi:moshi:1.9.3")
+	implementation("com.github.derjust:spring-data-dynamodb:5.0.3")
+	implementation("org.postgresql:postgresql:42.2.14")
+	implementation("org.springframework.boot:spring-boot-starter-data-jpa")
+	implementation("org.hibernate:hibernate-search-orm:5.11.5.Final")
+	runtimeOnly("com.h2database:h2")
+	runtimeOnly("org.postgresql:postgresql")
 	testImplementation("org.springframework.boot:spring-boot-starter-test") {
 		exclude(group = "org.junit.vintage", module = "junit-vintage-engine")
 	}
