@@ -1,7 +1,7 @@
 package com.rack.namegame.service
 
 import com.rack.namegame.dao.TreeRDSDAO
-import com.rack.namegame.entity.GameSession
+import com.rack.namegame.entity.Game
 import com.rack.namegame.entity.WillowTreeEmployeeEntity
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.Types
@@ -14,19 +14,8 @@ import org.springframework.stereotype.Service
 class NameGameService(@Autowired internal var dao: TreeRDSDAO) {
 
     @Autowired
-    lateinit var gameSession: GameSession
-    @Autowired
     lateinit var moshi: Moshi
 
-    @Bean
-    fun gameSession(): GameSession {
-        return GameSession(
-                null,
-                null,
-                0,
-                0
-        )
-    }
 
     @Bean
     fun moshi(): Moshi {
@@ -51,41 +40,36 @@ class NameGameService(@Autowired internal var dao: TreeRDSDAO) {
         return randomEmployees
     }
 
-    fun getSelectionOptionsJSON(count: Int = 6): String? {
-        val employees = getRandomEmployees()
-        gameSession.selectionOptions = employees
-        gameSession.correctEmployee = gameSession.selectionOptions!!.random()
-        return treeEmployeesToJson(employees)
+    fun getEmployee(employeeID: String): String? {
+        return moshi.adapter(WillowTreeEmployeeEntity::class.java)
+                .toJson(dao.getEmployeeById(employeeID))
     }
 
-    fun resetGameSession(): String {
-        gameSession.selectionOptions = null
-        gameSession.correctEmployee = null
-        gameSession.correctGuesses = 0
-        gameSession.incorrectGuesses = 0
-        gameSession.selectionOptions = getRandomEmployees()
-        gameSession.correctEmployee = gameSession.selectionOptions?.random()
-        return "started"
+    fun postEmployee(employee: WillowTreeEmployeeEntity): String {
+        dao.addEmployee(employee)
+        return "success"
     }
 
-    fun makeGuess(id: String): String {
-        if (id == gameSession.correctEmployee?.id) {
-            gameSession.correctGuesses = gameSession.correctGuesses?.plus(1)
-            gameSession.selectionOptions = getRandomEmployees()
+    fun postGame(game: Game, id: String): String {
+        if (id == game.correctEmployee?.id) {
+            game.correctGuesses = game.correctGuesses?.plus(1)
+            game.selectionOptions = getRandomEmployees()
         } else {
-            gameSession.incorrectGuesses = gameSession.incorrectGuesses?.plus(1)
+            game.incorrectGuesses = game.incorrectGuesses?.plus(1)
         }
-        val adapter = moshi.adapter(GameSession::class.java)
-        return adapter.toJson(gameSession)
+        val adapter = moshi.adapter(Game::class.java)
+        return adapter.toJson(game)
     }
 
     fun getByName(name: String): MutableList<WillowTreeEmployeeEntity> {
         return dao.getEmployeeByName(name)
     }
 
-    fun getSession(): String {
-        val adapter = moshi.adapter(GameSession::class.java)
-        return adapter.toJson(gameSession)
+    fun getGame(): String {
+        var game = Game(getRandomEmployees())
+        game.correctEmployee = game.selectionOptions?.random()
+        val adapter = moshi.adapter(Game::class.java)
+        return adapter.toJson(game)
     }
 
 }

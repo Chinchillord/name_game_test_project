@@ -8,6 +8,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
+import java.util.*
 
 @Component
 class TreeRDSDAO {
@@ -23,8 +24,12 @@ class TreeRDSDAO {
         return treeRepository.findAll().filter { it.firstName == name } as MutableList<WillowTreeEmployeeEntity>
     }
 
-    fun getEmployeeById(id: String): MutableList<WillowTreeEmployeeEntity> {
-        return treeRepository.findById(id) as MutableList<WillowTreeEmployeeEntity>
+    fun getEmployeeById(id: String): WillowTreeEmployeeEntity {
+        return treeRepository.findById(id).orElseThrow()
+    }
+
+    fun addEmployee(employee: WillowTreeEmployeeEntity) {
+        treeRepository.save(employee)
     }
 
 }
