@@ -18,7 +18,7 @@ data class WillowTreeEmployeeEntity (
         @GeneratedValue(generator = "system-uuid")
         @GenericGenerator(name="system-uuid", strategy = "uuid")
         @Column(name = "id")
-        val id: String,
+        val id: String? = null,
         @Column(name = "type")
         val type: String? = null,
         @Column(name = "slug")
@@ -32,6 +32,5 @@ data class WillowTreeEmployeeEntity (
         @Field
         val lastName: String? = null,
         @OneToOne(mappedBy = "employee", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
-        @PrimaryKeyJoinColumn
-        val headshot: Headshot? = null
+        var headshot: Headshot? = null
 )

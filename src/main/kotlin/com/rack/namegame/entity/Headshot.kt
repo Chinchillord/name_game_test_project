@@ -15,21 +15,21 @@ import kotlin.jvm.Transient
 data class Headshot (
         @Id
         @Column(name = "employee_id")
-        val id: String,
+        val id: String? = null,
         @Column(name = "type")
-        val type: String?,
+        val type: String? = null,
         @Column(name = "mime_type")
-        val mimeType: String?,
+        val mimeType: String? = null,
         @Column(name = "photo_id")
-        val photoID: String?,
+        val photoID: String? = null,
         @Column(name = "url")
-        val url: String?,
+        val url: String? = null,
         @Column(name = "alt")
-        val alt: String?,
+        val alt: String? = null,
         @Column(name = "height")
-        val height: Int?,
+        val height: Int? = null,
         @Column(name = "width")
-        val width: Int?,
+        val width: Int? = null,
         @MapsId
         @OneToOne
         @JoinColumn(name = "employee_id")
