@@ -1,12 +1,12 @@
 package com.rack.namegame.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import org.hibernate.annotations.Table
 import org.hibernate.search.annotations.Indexed
 import org.springframework.data.jpa.domain.support.AuditingEntityListener
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.EntityListeners
-import javax.persistence.Id
+import javax.persistence.*
+import kotlin.jvm.Transient
 
 @Entity
 @Table(appliesTo = "headshot")
@@ -14,7 +14,7 @@ import javax.persistence.Id
 @Indexed
 data class Headshot (
         @Id
-        @Column(name = "id")
+        @Column(name = "employee_id")
         val id: String,
         @Column(name = "type")
         val type: String?,
@@ -29,5 +29,10 @@ data class Headshot (
         @Column(name = "height")
         val height: Int?,
         @Column(name = "width")
-        val width: Int?
+        val width: Int?,
+        @MapsId
+        @OneToOne
+        @JoinColumn(name = "employee_id")
+        @JsonIgnore
+        var employee: WillowTreeEmployeeEntity? = null
 )

@@ -1,5 +1,7 @@
 package com.rack.namegame.service
 
+import com.fasterxml.jackson.databind.ObjectMapper
+import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
 import com.rack.namegame.dao.TreeRDSDAO
 import com.rack.namegame.entity.Game
 import com.rack.namegame.entity.WillowTreeEmployeeEntity
@@ -14,20 +16,20 @@ import org.springframework.stereotype.Service
 class NameGameService(@Autowired internal var dao: TreeRDSDAO) {
 
     @Autowired
-    lateinit var moshi: Moshi
+    lateinit var mapper: ObjectMapper
 
 
     @Bean
-    fun moshi(): Moshi {
-        return Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    fun mapper(): ObjectMapper {
+        return jacksonObjectMapper()
     }
 
-    private fun treeEmployeesToJson(employees: MutableList<WillowTreeEmployeeEntity>): String? {
-        val customType = Types.newParameterizedType(MutableList::class.java, WillowTreeEmployeeEntity::class.java)
-        val adapter = moshi.adapter<MutableList<WillowTreeEmployeeEntity>>(customType)
-        val treeJSON = adapter.toJson(employees as MutableList<WillowTreeEmployeeEntity>?)
-        return treeJSON
-    }
+//    private fun treeEmployeesToJson(employees: MutableList<WillowTreeEmployeeEntity>): String? {
+//        val customType = Types.newParameterizedType(MutableList::class.java, WillowTreeEmployeeEntity::class.java)
+//        val adapter = moshi.adapter<MutableList<WillowTreeEmployeeEntity>>(customType)
+//        val treeJSON = adapter.toJson(employees as MutableList<WillowTreeEmployeeEntity>?)
+//        return treeJSON
+//    }
 
     private fun getRandomEmployees(count: Int = 6): MutableList<WillowTreeEmployeeEntity> {
         var employees = dao.getAllEmployees()
@@ -41,8 +43,7 @@ class NameGameService(@Autowired internal var dao: TreeRDSDAO) {
     }
 
     fun getEmployee(employeeID: String): String? {
-        return moshi.adapter(WillowTreeEmployeeEntity::class.java)
-                .toJson(dao.getEmployeeById(employeeID))
+        return mapper.writeValueAsString(dao.getEmployeeById(employeeID))
     }
 
     fun postEmployee(employee: WillowTreeEmployeeEntity): String {
@@ -57,8 +58,7 @@ class NameGameService(@Autowired internal var dao: TreeRDSDAO) {
         } else {
             game.incorrectGuesses = game.incorrectGuesses?.plus(1)
         }
-        val adapter = moshi.adapter(Game::class.java)
-        return adapter.toJson(game)
+        return mapper.writeValueAsString(game)
     }
 
     fun getByName(name: String): MutableList<WillowTreeEmployeeEntity> {
@@ -68,8 +68,7 @@ class NameGameService(@Autowired internal var dao: TreeRDSDAO) {
     fun getGame(): String {
         var game = Game(getRandomEmployees())
         game.correctEmployee = game.selectionOptions?.random()
-        val adapter = moshi.adapter(Game::class.java)
-        return adapter.toJson(game)
+        return mapper.writeValueAsString(game)
     }
 
 }
