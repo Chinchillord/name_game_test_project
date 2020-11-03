@@ -2,39 +2,33 @@ package com.rack.namegame.service
 
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.module.kotlin.jacksonObjectMapper
-import com.rack.namegame.dao.TreeRDSDAO
+import com.rack.namegame.dao.NameGameInterface
 import com.rack.namegame.entity.Game
+import com.rack.namegame.entity.Headshot
 import com.rack.namegame.entity.WillowTreeEmployeeEntity
-import com.squareup.moshi.Moshi
-import com.squareup.moshi.Types
-import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import org.springframework.beans.factory.annotation.Autowired
-import org.springframework.context.annotation.Bean
 import org.springframework.stereotype.Service
 
 @Service
-class NameGameService(@Autowired internal var dao: TreeRDSDAO) {
+class NameGameService(@Autowired internal var dao: NameGameInterface) {
 
-    @Autowired
-    lateinit var mapper: ObjectMapper
-
-
-    @Bean
-    fun mapper(): ObjectMapper {
-        return jacksonObjectMapper()
-    }
-
-//    private fun treeEmployeesToJson(employees: MutableList<WillowTreeEmployeeEntity>): String? {
-//        val customType = Types.newParameterizedType(MutableList::class.java, WillowTreeEmployeeEntity::class.java)
-//        val adapter = moshi.adapter<MutableList<WillowTreeEmployeeEntity>>(customType)
-//        val treeJSON = adapter.toJson(employees as MutableList<WillowTreeEmployeeEntity>?)
-//        return treeJSON
-//    }
+    var mapper: ObjectMapper = jacksonObjectMapper()
 
     private fun getRandomEmployees(count: Int = 6): MutableList<WillowTreeEmployeeEntity> {
-        var employees = dao.getAllEmployees()
-        var randomEmployees = mutableListOf<WillowTreeEmployeeEntity>()
-        for (i in 0..count) {
+        val employees = dao.getAllEmployees()
+        val randomEmployees = mutableListOf<WillowTreeEmployeeEntity>()
+        for (i in 0 until count) {
+            val temp = employees.random()
+            randomEmployees.add(temp)
+            employees.remove(temp)
+        }
+        return randomEmployees
+    }
+
+    private fun getRandomEmployees(count: Int = 6, name: String): MutableList<WillowTreeEmployeeEntity> {
+        val employees = dao.getEmployeesByFirstName(name)
+        val randomEmployees = mutableListOf<WillowTreeEmployeeEntity>()
+        for (i in 0 until count) {
             val temp = employees.random()
             randomEmployees.add(temp)
             employees.remove(temp)
@@ -43,31 +37,43 @@ class NameGameService(@Autowired internal var dao: TreeRDSDAO) {
     }
 
     fun getEmployee(employeeID: String): String? {
-        return mapper.writeValueAsString(dao.getEmployeeById(employeeID))
+        return mapper.writeValueAsString(dao.getEmployeeByID(employeeID))
     }
 
-    fun postEmployee(employee: WillowTreeEmployeeEntity): String {
+    fun postEmployee(employee: WillowTreeEmployeeEntity, headshot: Headshot) {
+        employee.headshot = headshot
+        headshot.employee = employee
         dao.addEmployee(employee)
-        return "success"
     }
 
-    fun postGame(game: Game, id: String): String {
+    private fun newGame(isMattMode: Boolean = false): String? {
+        var selectionOptions = mutableListOf<WillowTreeEmployeeEntity>()
+        var mode = "default"
+        if (isMattMode) {
+            mode = "matt"
+            selectionOptions = getRandomEmployees(name = "matt")
+        } else {
+            selectionOptions = getRandomEmployees()
+        }
+        return dao.addGame(Game(selectionOptions = selectionOptions, correctEmployee = selectionOptions.random(), correctGuesses = 0, incorrectGuesses = 0, mode = mode))
+    }
+
+    fun postGame(game: Game? = null, id: String? = null, isMattMode: Boolean = false): String? {
+        if (game == null) {
+            return newGame(isMattMode)
+        }
         if (id == game.correctEmployee?.id) {
             game.correctGuesses = game.correctGuesses?.plus(1)
             game.selectionOptions = getRandomEmployees()
         } else {
             game.incorrectGuesses = game.incorrectGuesses?.plus(1)
         }
-        return mapper.writeValueAsString(game)
+        dao.addGame(game)
+        return game.id
     }
 
-    fun getByName(name: String): MutableList<WillowTreeEmployeeEntity> {
-        return dao.getEmployeeByName(name)
-    }
-
-    fun getGame(): String {
-        var game = Game(getRandomEmployees())
-        game.correctEmployee = game.selectionOptions?.random()
+    fun getGame(id: String): String {
+        val game = dao.getGameByID(id)
         return mapper.writeValueAsString(game)
     }
 

@@ -1,6 +1,7 @@
 package com.rack.namegame.controller
 
 import com.rack.namegame.entity.Game
+import com.rack.namegame.entity.Headshot
 import com.rack.namegame.entity.WillowTreeEmployeeEntity
 import com.rack.namegame.service.NameGameService
 import org.springframework.beans.factory.annotation.Autowired
@@ -11,14 +12,17 @@ class NameGameController(@Autowired internal var service: NameGameService) {
 
     @RequestMapping("/game", method = arrayOf(RequestMethod.GET))
     @GetMapping
-    fun getGame(): String {
-        return service.getGame()
+    fun getGame(@RequestParam("gameID") gameID: String): String {
+        return service.getGame(gameID)
     }
 
     @RequestMapping("/game", method = arrayOf(RequestMethod.POST))
     @PostMapping
-    fun postGame(@RequestBody game: Game, @RequestParam("guessID") guessID: String): String {
-        return service.postGame(game, guessID)
+    fun postGame(@RequestBody game: Game?,
+                 @RequestParam("guessID", required = false) guessID: String?,
+                 @RequestParam("isMattMode", required = false) isMattMode: Boolean = false)
+            : String? {
+        return service.postGame(game, guessID, isMattMode)
     }
 
     @RequestMapping("/employee", method = arrayOf(RequestMethod.GET))
@@ -29,7 +33,7 @@ class NameGameController(@Autowired internal var service: NameGameService) {
 
     @RequestMapping("/employee", method = arrayOf(RequestMethod.POST))
     @PostMapping
-    fun postEmployee(@RequestBody employee: WillowTreeEmployeeEntity) {
-        service.postEmployee(employee)
+    fun postEmployee(@RequestBody employee: WillowTreeEmployeeEntity, @RequestBody headshot: Headshot) {
+        service.postEmployee(employee, headshot)
     }
 }
