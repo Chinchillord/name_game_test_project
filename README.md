@@ -50,4 +50,8 @@ Error handling is very straightforward. I am using the default ResponseEntityExc
 
 To run the project, simply clone this repo, navigate to the root folder of the project in the terminal and execute `./gradlew bootRun`
 
-Postman collection is included to test the general play flow as outlined in the description and screenshots above.
+Similarly to run the tests, execute `./gradlew test`
+
+Postman collection is included to test the general play flow as outlined in the description and screenshots above. 
+
+*Note:* You will need to reach out to me to obtain credentials to access the database. Ideally, they would be included as environment variables when deploying, but I haven't set up a deployment yet.
