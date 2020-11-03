@@ -16,7 +16,8 @@ data class Game (
         @GenericGenerator(name = "uuid", strategy = "uuid2")
         @Column
         var id: String? = null,
-        @OneToMany(cascade = arrayOf(CascadeType.ALL))
+        @OneToMany(cascade = arrayOf(CascadeType.REMOVE), orphanRemoval = true)
+        @JoinColumn
         var selectionOptions: MutableList<WillowTreeEmployeeEntity>? = null,
         @OneToOne()
         var correctEmployee: WillowTreeEmployeeEntity? = null,

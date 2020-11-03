@@ -1,5 +1,6 @@
 package com.rack.namegame.controller
 
+import com.rack.namegame.entity.EmployeeHeadshotWrapper
 import com.rack.namegame.entity.Game
 import com.rack.namegame.entity.Headshot
 import com.rack.namegame.entity.WillowTreeEmployeeEntity
@@ -33,7 +34,7 @@ class NameGameController(@Autowired internal var service: NameGameService) {
 
     @RequestMapping("/employee", method = arrayOf(RequestMethod.POST))
     @PostMapping
-    fun postEmployee(@RequestBody employee: WillowTreeEmployeeEntity, @RequestBody headshot: Headshot) {
-        service.postEmployee(employee, headshot)
+    fun postEmployee(@RequestBody wrapper: EmployeeHeadshotWrapper) {
+        service.postEmployee(wrapper.employee, wrapper.headshot)
     }
 }

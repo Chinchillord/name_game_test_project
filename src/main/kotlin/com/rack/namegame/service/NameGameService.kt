@@ -40,9 +40,9 @@ class NameGameService(@Autowired internal var dao: NameGameInterface) {
         return mapper.writeValueAsString(dao.getEmployeeByID(employeeID))
     }
 
-    fun postEmployee(employee: WillowTreeEmployeeEntity, headshot: Headshot) {
+    fun postEmployee(employee: WillowTreeEmployeeEntity, headshot: Headshot?) {
         employee.headshot = headshot
-        headshot.employee = employee
+        headshot?.employee = employee
         dao.addEmployee(employee)
     }
 

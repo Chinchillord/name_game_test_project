@@ -4,6 +4,7 @@ import com.rack.namegame.entity.Game
 import com.rack.namegame.repositories.TreeRepository
 import com.rack.namegame.entity.WillowTreeEmployeeEntity
 import com.rack.namegame.repositories.GameRepository
+import org.hibernate.Session
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.stereotype.Component
 
