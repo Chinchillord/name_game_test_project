@@ -15,11 +15,9 @@ GET to /game with gameID provided in POST request
 POST to /game with request body received in the above GET request. Also provide a guessID based on which picture the player selects.
 Returns ID for statelessness
 
-![Alt text](/name_game_screenshots/new_ss_3.png?raw=true)
+![Alt text](/name_game_screenshots/new_ss_4.png?raw=true)
 
 GET to /game again shows updated score!
-
-![Alt text](/name_game_screenshots/new_ss_4.png?raw=true)
 
 ![Alt text](/name_game_screenshots/new_ss_5.png?raw=true)
 
