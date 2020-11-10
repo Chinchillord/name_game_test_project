@@ -21,6 +21,10 @@ GET to /game again shows updated score!
 
 ![Alt text](/name_game_screenshots/new_ss_5.png?raw=true)
 
+In the screenshot above, we incremented the incorrect guesses. To increment the correct guesses, change the guessID to the correct employee id.
+
+![Alt text](/name_game_screenshots/new_ss_8.png?raw=true)
+
 You can also add new employees via POST to /employees with a request body that includes both a Headshot and an Employee object.
 
 ![Alt text](/name_game_screenshots/new_ss_6.png?raw=true)
