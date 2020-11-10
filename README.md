@@ -8,9 +8,16 @@ POST to /game with no body or parameters returns ID
 
 ![Alt text](/name_game_screenshots/new_ss_1.png?raw=true)
 
+GET to /game with gameID provided in POST request
+
 ![Alt text](/name_game_screenshots/new_ss_2.png?raw=true)
 
+POST to /game with request body received in the above GET request. Also provide a guessID based on which picture the player selects.
+Returns ID for statelessness
+
 ![Alt text](/name_game_screenshots/new_ss_3.png?raw=true)
+
+GET to /game again shows updated score!
 
 ![Alt text](/name_game_screenshots/new_ss_4.png?raw=true)
 
