@@ -21,6 +21,14 @@ GET to /game again shows updated score!
 
 ![Alt text](/name_game_screenshots/new_ss_5.png?raw=true)
 
+You can also add new employees via POST to /employees with a request body that includes both a Headshot and an Employee object.
+
+![Alt text](/name_game_screenshots/new_ss_6.png?raw=true)
+
+As with POSTs to /game, the above will return an id, which we can use to access the newly created employee
+
+![Alt text](/name_game_screenshots/new_ss_7.png?raw=true)
+
 
 # Architecture
 
