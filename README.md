@@ -38,7 +38,7 @@ The API Framework that I chose for development is Spring Boot. Spring follows a 
 3. GET /employee?employeeID<string>
   Returns WillowTree Employee that matches the queried ID.
 
-4. POST /employee Body: EmployeeHeadshotWrapper Object
+4. POST /employee Body: EmployeeHeadshotWrapper Object (example in Postman request)
 
 Persistence is handled by Hibernate. Hibernate creates persistence and automates SQL queries based on the design of the data models. More detail about the relationships can be seen above.
 
