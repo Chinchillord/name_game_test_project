@@ -11,10 +11,10 @@ import kotlin.jvm.Transient
 @Entity
 @Table(appliesTo = "headshot")
 @EntityListeners(AuditingEntityListener::class)
-@Indexed
+@Indexed(index = "data/index/Headshot")
 data class Headshot (
         @Id
-        @Column(name = "employee_id")
+        @Column(name = "employee_id", insertable = false, updatable = false)
         val id: String? = null,
         @Column(name = "type")
         val type: String? = null,
@@ -31,7 +31,7 @@ data class Headshot (
         @Column(name = "width")
         val width: Int? = null,
         @MapsId
-        @OneToOne
+        @OneToOne(cascade = arrayOf(CascadeType.MERGE))
         @JoinColumn(name = "employee_id")
         @JsonIgnore
         var employee: WillowTreeEmployeeEntity? = null

@@ -8,10 +8,43 @@
 		{
 			"name": "Create New Game",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/game",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"game"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Create New Game - Matt Mode",
+			"request": {
+				"method": "POST",
+				"header": [],
+				"url": {
+					"raw": "http://localhost:8080/game?isMattMode=true",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"game"
+					],
+					"query": [
+						{
+							"key": "isMattMode",
+							"value": "true"
+						}
+					]
 				}
 			},
 			"response": []
@@ -22,7 +55,21 @@
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/game?gameID=f42303f9-be06-45eb-ba00-a6a369d93881",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"game"
+					],
+					"query": [
+						{
+							"key": "gameID",
+							"value": "f42303f9-be06-45eb-ba00-a6a369d93881"
+						}
+					]
 				}
 			},
 			"response": []
@@ -30,10 +77,33 @@
 		{
 			"name": "Update Game",
 			"request": {
-				"method": "GET",
+				"method": "POST",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\"id\":\"f42303f9-be06-45eb-ba00-a6a369d93881\",\"selectionOptions\":[{\"id\":\"29XgxedqmAO86mGeImqwEK\",\"type\":\"people\",\"slug\":\"ben-frye\",\"jobTitle\":\"Senior Software Engineer\",\"firstName\":\"Ben\",\"lastName\":\"Frye\",\"headshot\":{\"id\":\"29XgxedqmAO86mGeImqwEK\",\"type\":\"image\",\"mimeType\":\"image/jpeg\",\"photoID\":\"3SQLIq0Y36oYyaiwCSwOY8\",\"url\":\"//images.ctfassets.net/3cttzl4i3k1h/3SQLIq0Y36oYyaiwCSwOY8/a65ae6620c8041b2773c1915156261d7/headshot_ben_frye.jpg\",\"alt\":\"headshot ben frye\",\"height\":340,\"width\":340}},{\"id\":\"6btNXZhuo0uQSo4icYqGyO\",\"type\":\"people\",\"slug\":\"preston-brown\",\"jobTitle\":\"Software Engineer\",\"firstName\":\"Preston\",\"lastName\":\"Brown\",\"headshot\":{\"id\":\"6btNXZhuo0uQSo4icYqGyO\",\"type\":\"image\",\"mimeType\":\"image/jpeg\",\"photoID\":\"3lcliXPNFeIaWUA4GUMEO4\",\"url\":\"//images.ctfassets.net/3cttzl4i3k1h/3lcliXPNFeIaWUA4GUMEO4/13db5b49dc2a746d03dbecbb05501f84/headshot_preston_brown.jpg\",\"alt\":\"headshot preston brown\",\"height\":340,\"width\":340}},{\"id\":\"9bEzPLdBAcOeQKmIyeywS\",\"type\":\"people\",\"slug\":\"blake-sirach\",\"jobTitle\":\"Chief Product Officer\",\"firstName\":\"Blake\",\"lastName\":\"Sirach\",\"headshot\":{\"id\":\"9bEzPLdBAcOeQKmIyeywS\",\"type\":\"image\",\"mimeType\":\"image/png\",\"photoID\":\"3KgxaaMoKAcCeGW08sgM2o\",\"url\":\"//images.ctfassets.net/3cttzl4i3k1h/3KgxaaMoKAcCeGW08sgM2o/8ac41a03439c760e1506df30c8db08b6/blake-headshot2.png\",\"alt\":\"Blake Sirach, Chief Experience Office at WillowTree, Inc.\",\"height\":1500,\"width\":1501}},{\"id\":\"1yAXw5gi8EusawQQw6A24M\",\"type\":\"people\",\"slug\":\"robert-thompson\",\"jobTitle\":\"\",\"firstName\":\"Robert\",\"lastName\":\"Thompson\",\"headshot\":{\"id\":\"1yAXw5gi8EusawQQw6A24M\",\"type\":\"image\",\"mimeType\":\"image/jpeg\",\"photoID\":\"6TEToOauEEee4eamG4IQ2q\",\"url\":\"//images.ctfassets.net/3cttzl4i3k1h/6TEToOauEEee4eamG4IQ2q/e4c82f13c054107c30365d8c2475ccac/headshot_robert_thompson.jpg\",\"alt\":\"headshot robert thompson\",\"height\":340,\"width\":340}},{\"id\":\"5cF0RNrHkrVAeqXW5bpR8T\",\"type\":\"people\",\"slug\":\"cook\",\"jobTitle\":\"Software Engineer\",\"firstName\":\"Daniel\",\"lastName\":\"Cook\",\"headshot\":{\"id\":\"5cF0RNrHkrVAeqXW5bpR8T\",\"type\":\"image\",\"mimeType\":\"image/jpeg\",\"photoID\":\"4b3WRVRF7UZZE4mJnsDGb1\",\"url\":\"//images.ctfassets.net/3cttzl4i3k1h/4b3WRVRF7UZZE4mJnsDGb1/701696fc786769804a2708f830508186/Daniel_Cook.jpg\",\"alt\":\"Daniel Cook\",\"height\":170,\"width\":170}},{\"id\":\"3Kq8vC8yNkViQllgIMfxms\",\"type\":\"people\",\"slug\":\"alley\",\"jobTitle\":\"Product Designer\",\"firstName\":\"Jacob\",\"lastName\":\"Alley\",\"headshot\":{\"id\":\"3Kq8vC8yNkViQllgIMfxms\",\"type\":\"image\",\"mimeType\":\"image/jpeg\",\"photoID\":\"4Y0etfpWfClWsuKl1Uehuf\",\"url\":\"//images.ctfassets.net/3cttzl4i3k1h/4Y0etfpWfClWsuKl1Uehuf/386e314ab180c8d65548056b65db4541/353-2-4.jpg\",\"alt\":\"jacob alley\",\"height\":170,\"width\":170}}],\"correctEmployee\":{\"id\":\"6btNXZhuo0uQSo4icYqGyO\",\"type\":\"people\",\"slug\":\"preston-brown\",\"jobTitle\":\"Software Engineer\",\"firstName\":\"Preston\",\"lastName\":\"Brown\",\"headshot\":{\"id\":\"6btNXZhuo0uQSo4icYqGyO\",\"type\":\"image\",\"mimeType\":\"image/jpeg\",\"photoID\":\"3lcliXPNFeIaWUA4GUMEO4\",\"url\":\"//images.ctfassets.net/3cttzl4i3k1h/3lcliXPNFeIaWUA4GUMEO4/13db5b49dc2a746d03dbecbb05501f84/headshot_preston_brown.jpg\",\"alt\":\"headshot preston brown\",\"height\":340,\"width\":340}},\"correctGuesses\":0,\"incorrectGuesses\":1}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/game?guessID=3fgaigpnJYGYGWGWA6IMAy",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"game"
+					],
+					"query": [
+						{
+							"key": "guessID",
+							"value": "3fgaigpnJYGYGWGWA6IMAy"
+						}
+					]
 				}
 			},
 			"response": []
@@ -41,10 +111,52 @@
 		{
 			"name": "Add Employee",
 			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"employee\": {\"type\":\"people\",\"slug\":\"willywonka\",\"jobTitle\":\"candyman\",\"firstName\":\"Willy\",\"lastName\":\"Wonka\"},\n    \"headshot\":{\"type\":\"image\",\"mimeType\":\"image/jpeg\",\"photoID\":\"4Qcr7oYHCgC4M2WU4kIcao\",\"url\":\"//images.ctfassets.net/3cttzl4i3k1h/4Qcr7oYHCgC4M2WU4kIcao/9360ac59c805db9aa8bfe0eaccf1828e/headshot_frank_doyle.jpg\",\"alt\":\"headshot frank doyle\",\"height\":340,\"width\":340}\n    }",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "http://localhost:8080/employee",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Get Employee",
+			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": ""
+					"raw": "http://localhost:8080/employee?employeeID=8a80803d75b34f210175b34f4be80000",
+					"protocol": "http",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"employee"
+					],
+					"query": [
+						{
+							"key": "employeeID",
+							"value": "8a80803d75b34f210175b34f4be80000"
+						}
+					]
 				}
 			},
 			"response": []

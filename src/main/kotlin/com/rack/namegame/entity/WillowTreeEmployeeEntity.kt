@@ -9,7 +9,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "tree_employees")
 @EntityListeners(AuditingEntityListener::class)
-@Indexed
+@Indexed(index = "data/index/WillowTreeEmployeeEntity")
 data class WillowTreeEmployeeEntity(
         @Id
         @GeneratedValue(generator = "system-uuid")
@@ -26,6 +26,6 @@ data class WillowTreeEmployeeEntity(
         val firstName: String? = null,
         @Column(name = "last_name")
         val lastName: String? = null,
-        @OneToOne(mappedBy = "employee", cascade = [CascadeType.ALL], orphanRemoval = true, fetch = FetchType.LAZY)
+        @OneToOne(mappedBy = "employee", cascade = [CascadeType.MERGE], orphanRemoval = true, fetch = FetchType.LAZY)
         var headshot: Headshot? = null
 )

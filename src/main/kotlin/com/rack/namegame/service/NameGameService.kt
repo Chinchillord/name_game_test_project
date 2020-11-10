@@ -40,10 +40,10 @@ class NameGameService(@Autowired internal var dao: NameGameInterface) {
         return mapper.writeValueAsString(dao.getEmployeeByID(employeeID))
     }
 
-    fun postEmployee(employee: WillowTreeEmployeeEntity, headshot: Headshot?) {
+    fun postEmployee(employee: WillowTreeEmployeeEntity, headshot: Headshot?): String? {
         employee.headshot = headshot
         headshot?.employee = employee
-        dao.addEmployee(employee)
+        return dao.addEmployee(employee, headshot ?: Headshot())
     }
 
     private fun newGame(isMattMode: Boolean = false): String? {

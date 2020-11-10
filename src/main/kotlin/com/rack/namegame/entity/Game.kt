@@ -9,7 +9,7 @@ import javax.persistence.*
 @Entity
 @Table(name = "games")
 @EntityListeners(AuditingEntityListener::class)
-@Indexed
+@Indexed(index = "data/index/Game")
 data class Game (
         @Id
         @GeneratedValue(generator = "uuid", strategy = GenerationType.TABLE)

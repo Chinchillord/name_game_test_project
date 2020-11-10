@@ -34,7 +34,7 @@ class NameGameController(@Autowired internal var service: NameGameService) {
 
     @RequestMapping("/employee", method = arrayOf(RequestMethod.POST))
     @PostMapping
-    fun postEmployee(@RequestBody wrapper: EmployeeHeadshotWrapper) {
-        service.postEmployee(wrapper.employee, wrapper.headshot)
+    fun postEmployee(@RequestBody wrapper: EmployeeHeadshotWrapper): String? {
+        return service.postEmployee(wrapper.employee, wrapper.headshot)
     }
 }
