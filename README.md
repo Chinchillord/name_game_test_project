@@ -6,15 +6,15 @@ When the client makes a POST call to the /game endpoint (with no request body or
 
 POST to /game with no body or parameters returns ID
 
-![Alt text](/name_game_screenshots/ss_one.png?raw=true)
+![Alt text](/name_game_screenshots/new_ss_1.png?raw=true)
 
-![Alt text](/name_game_screenshots/ss_two.png?raw=true)
+![Alt text](/name_game_screenshots/new_ss_2.png?raw=true)
 
-![Alt text](/name_game_screenshots/ss_three.png?raw=true)
+![Alt text](/name_game_screenshots/new_ss_3.png?raw=true)
 
-![Alt text](/name_game_screenshots/ss_four.png?raw=true)
+![Alt text](/name_game_screenshots/new_ss_4.png?raw=true)
 
-![Alt text](/name_game_screenshots/ss_five.png?raw=true)
+![Alt text](/name_game_screenshots/new_ss_5.png?raw=true)
 
 ![Alt text](/name_game_screenshots/ss_six.png?raw=true)
 
